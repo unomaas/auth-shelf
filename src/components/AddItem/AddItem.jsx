@@ -25,6 +25,8 @@ export default function AddItem() {
         
         setDescription('');
         setUrl('');
+
+        history.push('/shelf');
     } // end handleSubmit
     
     
@@ -35,12 +37,20 @@ export default function AddItem() {
     return (
         <div>
             <form onSubmit={handleSubmit}>
-            <input type = "text" placeholder="Description"
-            onChange={(event) => setDescription(event.target.value)}
-            value={description}/>
-            <input type="text" placeholder="Image URL"
-            onChange={(event) => setUrl(event.target.value)}
-            value={url}/>
+
+                <label htmlFor="description">Description
+                    <input type = "text" placeholder="Description" 
+                    id="description"
+                    onChange={(event) => setDescription(event.target.value)}
+                    value={description}/>
+                </label>
+            
+                <label htmlFor="url">Image Url
+                    <input type="text" placeholder="Image URL" 
+                    id="url"
+                    onChange={(event) => setUrl(event.target.value)}
+                    value={url}/>
+                </label>
             </form>
             
             
