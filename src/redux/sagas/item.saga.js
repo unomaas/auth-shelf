@@ -15,6 +15,19 @@ function* fetchItems() {
 // saga generator to handle axios POST
 function* addItem(action) {
 
+    // try wrapper handles no error path
+    try {
+
+        // run axios POST with a body of the form object
+        yield axios.post(`/api/shelf`, action.payload);
+
+        // dispatch to our reducer to re-run the GET
+        yield put({type: 'FETCH_ITEMS'});
+
+    // catch for error
+    } catch (error) {
+    console.log('Error in add item generator',error)
+    }  ;
 }
 
 // saga generator to handle axios DELETE by
