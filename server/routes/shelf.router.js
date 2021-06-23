@@ -6,7 +6,27 @@ const router = express.Router();
  * Get all of the items on the shelf
  */
 router.get('/', (req, res) => {
-  res.sendStatus(200); // For testing only, can be removed
+  // res.sendStatus(200); // For testing only, can be removed
+  /* SELECT * FROM "item"; */
+  console.log(req.user)
+  const queryText = `
+  
+    SELECT * FROM "item"; 
+  `;
+  if(req.isAuthenticated) {
+    pool
+      .query(queryText)
+      .then(results => {
+        res.send(results.rows)
+      })
+      .catch(
+        error => {
+      console.log(`Hey Capt, we got an... ${error}`)
+    })
+  } else {
+    // FORBIDDEN SIR!
+    res.sendStatus(403) 
+  }
 });
 
 /**
