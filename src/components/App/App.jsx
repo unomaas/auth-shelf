@@ -20,6 +20,8 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 
+import AddItem from '../AddItem/AddItem'
+
 import './App.css';
 
 function App() {
@@ -100,6 +102,12 @@ function App() {
             authRedirect="/user"
           >
             <LandingPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path="/addItem" >
+            <AddItem />
           </ProtectedRoute>
 
           {/* If none of the other routes matched, we will show a 404. */}
