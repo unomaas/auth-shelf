@@ -1,12 +1,20 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
-function ShelfPage() {
-  return (
-    <div className="container">
-      <h2>Shelf</h2>
-      <p>All of the available items can be seen here.</p>
-    </div>
-  );
-}
+  function ShelfPage() {
+
+    const history = useHistory();
+
+    const navigateAdd = () => {
+      history.push(`/addItem`)
+    }
+    return (
+      <div className="container">
+        <p onClick={navigateAdd}>Navigate me to ADD ITEM</p>
+        <h2>Shelf</h2>
+        <p>All of the available items can be seen here.</p>
+      </div>
+    );
+  }
 
 export default ShelfPage;
