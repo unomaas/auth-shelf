@@ -1,4 +1,4 @@
-export const itemReducer = (state = [], action) => {
+const itemReducer = (state = [], action) => {
 
     // switch on different action types (saga commands)
   switch (action.type) {
@@ -24,3 +24,4 @@ export const itemReducer = (state = [], action) => {
   }
 };
 
+export default itemReducer;
