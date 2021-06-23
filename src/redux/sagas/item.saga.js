@@ -3,7 +3,13 @@ import axios from 'axios';
 
 // saga generator to handle axios GET all items
 function* fetchItems() {
-
+    try {
+        const response = yield axios.get(`/api/shelf`)
+        console.log(`Server says... ${response}`)
+        yield put({type: "SET_ITEMS", payload: response.data})
+    } catch(error) {
+        console.log(`Failed GET request ${error}`)
+    }
 }
 
 // saga generator to handle axios POST
