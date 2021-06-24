@@ -1,6 +1,8 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
+
 
 /**
  * Get all of the items on the shelf
@@ -64,8 +66,28 @@ router.post('/', (req, res) => {
 /**
  * Delete an item if it's something the logged in user added
  */
-router.delete('/:id', (req, res) => {
+router.delete('/:id/:user_id', rejectUnauthenticated, (req, res) => {
   // endpoint functionality
+  console.log(`You've arrived at /api/shelf/ DELETE`, req.params);
+  console.log(req.user);
+  
+  if(req.user.id == req.params.user_id ){
+
+    const queryText = `DELETE FROM "item" WHERE "id" = $1;`;
+  
+    pool
+      .query(queryText, [req.params.id])
+      .then(() => res.sendStatus(200))
+      .catch((err) => {
+        console.log(`Yikes, we couldn't delete that: ${err}`);
+        res.sendStatus(500);
+      });
+  } else {
+    // You didn't make the cut
+    res.sendStatus(403) // Forbidden!
+    // ForbidDane
+  }
+  
 });
 
 /**
