@@ -10,12 +10,17 @@ function ShelfPage() {
   //#region ⬇⬇ All state variables below:
   const dispatch = useDispatch();
   const itemReducer = useSelector(store => store.itemReducer);
+  const userReducer = useSelector(store => store.userReducer);
   // ⬇ GET on page load:
   useEffect(() => {
     dispatch({ type: 'FETCH_ITEMS' });
   }, []);
   //#endregion ⬆⬆ All state variables above.
 
+  const handleDelete = (item) => {
+    console.log('Item to be deleted', item)
+    dispatch({type: 'REMOVE_ITEMS', payload:  item})
+  }
   const navigateAdd = () => {
     history.push(`/addItem`)
   }
@@ -28,10 +33,11 @@ function ShelfPage() {
       <ul>
         {itemReducer.map(item => {
           return (
-            <>
+            <div key={item?.id}>
               <li>{item?.description}</li>
               <li><img src={item?.image_url} /></li>
-            </>
+              <button onClick={() => handleDelete(item)}>Delete</button>
+            </div>
           )
         })}
       </ul>
